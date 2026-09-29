@@ -64,7 +64,7 @@ body {
     radial-gradient(circle at 88% 8%,  rgba(231, 220, 207, .8), transparent 40%),
     radial-gradient(circle at 50% 96%, rgba(231, 220, 207, .7), transparent 48%);
   background-attachment: fixed;
-  padding-bottom: calc(84px + env(safe-area-inset-bottom));
+  padding-bottom: calc(118px + env(safe-area-inset-bottom));
 }
 
 @media (min-width: 880px) {
