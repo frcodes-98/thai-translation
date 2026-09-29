@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f3ece1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="A warm little notebook for translating Thai, English and Chinese — always with Thai romanization, plus picture and voice translation.">
+<title>PolyLingo &mdash; Thai &middot; English &middot; Chinese phrase notebook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Figtree:wght@400;500;600;700&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to the translator</a>
+
+<!-- ============ icon sprite ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0">
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 7h11l-3-3M17 17H6l3 3" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-speak" viewBox="0 0 24 24"><path d="M4 10v4h3l4 3V7l-4 3H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.5 9.2a4 4 0 0 1 0 5.6M18 6.7a7.5 7.5 0 0 1 0 10.6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="10.5" height="11.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15.5 6.2A2.5 2.5 0 0 0 13 3.5H7A2.5 2.5 0 0 0 4.5 6v8.5a2.5 2.5 0 0 0 2.6 2.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6.5 3.5h11a1 1 0 0 1 1 1v16l-6.5-4-6.5 4v-16a1 1 0 0 1 1-1z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="2.8" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3.2M8.5 21.2h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="15" rx="3" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="8.6" cy="10" r="1.7" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.6 17.2 9 12.4l4 3.4 3-2.4 4.4 3.8" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M3 8.8A2.3 2.3 0 0 1 5.3 6.5h1.5l1.3-2h7.8l1.3 2h1.5A2.3 2.3 0 0 1 21 8.8v8.4a2.3 2.3 0 0 1-2.3 2.3H5.3A2.3 2.3 0 0 1 3 17.2V8.8z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="13" r="3.6" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-pen" viewBox="0 0 24 24"><path d="M4 20l1-4.2L16.3 4.5a2 2 0 0 1 2.8 0l.9.9a2 2 0 0 1 0 2.8L8.7 19.5 4 20z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M14.6 6.6l2.8 2.8" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.2A1.7 1.7 0 0 1 5.7 3.5H11a2 2 0 0 1 2 2v14a1.6 1.6 0 0 0-1.6-1.6H5.7A1.7 1.7 0 0 1 4 16.2V5.2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M20 5.2a1.7 1.7 0 0 0-1.7-1.7H13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path d="M20 5.2v11a1.7 1.7 0 0 1-1.7 1.7h-5.7A1.6 1.6 0 0 0 11 19.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M5 7h14M10 4.5h4M6.5 7l.8 12.2a1.6 1.6 0 0 0 1.6 1.5h6.2a1.6 1.6 0 0 0 1.6-1.5L17.5 7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.8l4.4 4.2L19 6.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="M9 5.5l6.5 6.5L9 18.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5.5" cy="12" r="1.7" fill="currentColor"/><circle cx="12" cy="12" r="1.7" fill="currentColor"/><circle cx="18.5" cy="12" r="1.7" fill="currentColor"/></symbol>
+  <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.2l1.9 5.1 5.1 1.9-5.1 1.9L12 17.2l-1.9-5.1L5 10.2l5.1-1.9L12 3.2z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M18.6 16.4l.8 2.1 2.1.8-2.1.8-.8 2.1-.8-2.1-2.1-.8 2.1-.8.8-2.1z" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.6 12S6 5.8 12 5.8 21.4 12 21.4 12 18 18.2 12 18.2 2.6 12 2.6 12z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="1.7"/></symbol>
+</svg>
+
+<!-- ============ app bar ============ -->
+<header class="appbar">
+  <div class="appbar-inner">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true">ก</span>
+      <span class="brand-text">
+        <strong>PolyLingo</strong>
+        <small>Thai &middot; English &middot; Chinese notebook</small>
+      </span>
+    </div>
+
+    <nav class="tabbar" id="tabbar" aria-label="Sections">
+      <button type="button" class="tabbtn is-active" data-view="view-text" aria-current="page">
+        <svg class="ico" aria-hidden="true"><use href="#i-pen"></use></svg>
+        <span>Text</span>
+      </button>
+      <button type="button" class="tabbtn" data-view="view-image">
+        <svg class="ico" aria-hidden="true"><use href="#i-image"></use></svg>
+        <span>Picture</span>
+      </button>
+      <button type="button" class="tabbtn" data-view="view-voice">
+        <svg class="ico" aria-hidden="true"><use href="#i-mic"></use></svg>
+        <span>Voice</span>
+      </button>
+      <button type="button" class="tabbtn" data-view="view-saved">
+        <svg class="ico" aria-hidden="true"><use href="#i-book"></use></svg>
+        <span>Saved</span>
+      </button>
+    </nav>
+
+    <button type="button" class="iconbtn appbar-action" id="settingsBtn"
+            aria-haspopup="dialog" aria-label="Translation engine settings">
+      <svg class="ico" aria-hidden="true"><use href="#i-spark"></use></svg>
+      <span class="dot" id="groqDot" hidden></span>
+    </button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+
+  <!-- ============ LANGUAGE ROUTE (shared by every view) ============ -->
+  <section class="card route" aria-label="Translation languages">
+    <div class="route-row">
+      <button type="button" class="langbtn" id="fromBtn" data-side="source" aria-haspopup="dialog">
+        <span class="langbtn-cap">From</span>
+        <span class="langbtn-val" id="fromValue">Thai</span>
+      </button>
+
+      <button type="button" class="swap" id="swapLang" aria-label="Swap the two languages">
+        <svg class="ico" aria-hidden="true"><use href="#i-swap"></use></svg>
+      </button>
+
+      <button type="button" class="langbtn" id="toBtn" data-side="target" aria-haspopup="dialog">
+        <span class="langbtn-cap">To</span>
+        <span class="langbtn-val" id="toValue">English</span>
+      </button>
+    </div>
+
+    <div class="chiprow" role="group" aria-label="Quick language pairs">
+      <button type="button" class="chip" data-pair="en,th">EN &rarr; TH</button>
+      <button type="button" class="chip" data-pair="th,en">TH &rarr; EN</button>
+      <button type="button" class="chip" data-pair="zh-CN,th">&#20013; &rarr; TH</button>
+      <button type="button" class="chip" data-pair="th,zh-CN">TH &rarr; &#20013;</button>
+    </div>
+  </section>
+
+  <!-- ============ TEXT ============ -->
+  <section id="view-text" class="view is-active">
+    <div class="stack">
+
+      <article class="card compose">
+        <header class="card-head">
+          <h2>Your text</h2>
+          <span class="counter"><span id="charCount">0</span>/5000</span>
+        </header>
+
+        <textarea id="sourceText" class="editor" rows="4" maxlength="5000" spellcheck="false"
+          placeholder="Type or paste something…" aria-label="Text to translate"></textarea>
+
+        <footer class="card-foot">
+          <button type="button" class="btn quiet" id="speakSource">
+            <svg class="ico" aria-hidden="true"><use href="#i-speak"></use></svg><span>Listen</span>
+          </button>
+          <button type="button" class="btn quiet" id="clearSource">Clear</button>
+          <button type="button" class="btn primary grow" id="translateBtn">Translate</button>
+        </footer>
+        <p class="kbd-hint">Translates as you pause &mdash; or press <kbd>Ctrl</kbd>&thinsp;+&thinsp;<kbd>Enter</kbd></p>
+      </article>
+
+      <article class="card result" id="resultCard">
+        <header class="card-head">
+          <h2>Translation</h2>
+          <span class="badge" id="providerBadge" hidden></span>
+        </header>
+
+        <div id="targetText" class="readout" aria-live="polite" aria-atomic="true"
+             data-placeholder="The translation shows up here."></div>
+
+        <div class="roman" id="romanizeBox" hidden>
+          <div class="roman-head">
+            <span class="roman-title">Say it like this <small id="romanizeSide"></small></span>
+            <button type="button" class="btn tiny quiet" id="copyRoman">Copy</button>
+          </div>
+          <p id="romanizeText" class="roman-body"></p>
+        </div>
+
+        <footer class="card-foot">
+          <button type="button" class="btn quiet" id="speakTarget">
+            <svg class="ico" aria-hidden="true"><use href="#i-speak"></use></svg><span>Listen</span>
+          </button>
+          <button type="button" class="btn quiet" id="copyTarget">
+            <svg class="ico" aria-hidden="true"><use href="#i-copy"></use></svg><span>Copy</span>
+          </button>
+          <button type="button" class="btn teal grow" id="saveTarget">
+            <svg class="ico" aria-hidden="true"><use href="#i-bookmark"></use></svg><span>Save phrase</span>
+          </button>
+        </footer>
+      </article>
+
+      <article class="card words" id="wordCard" hidden>
+        <header class="card-head">
+          <h2>Word by word</h2>
+          <span class="badge soft" id="wordSide"></span>
+        </header>
+        <p class="muted small">Tap a word to hear it and look up what it means on its own.</p>
+        <div class="wordgrid" id="wordList"></div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ PICTURE ============ -->
+  <section id="view-image" class="view">
+    <div class="stack">
+
+      <article class="card">
+        <header class="card-head"><h2>Read a picture</h2></header>
+
+        <div id="dropzone" class="dropzone">
+          <input type="file" id="imageInput" accept="image/*" hidden>
+          <svg class="dz-ico" aria-hidden="true"><use href="#i-image"></use></svg>
+          <p class="dz-lead">Menus, signs, labels, receipts, screenshots</p>
+          <p class="muted small">Drop a photo here, paste one, or pick it below.</p>
+          <div class="dz-actions">
+            <button type="button" class="btn primary" id="pickImage">Choose a photo</button>
+            <button type="button" class="btn teal" id="openCamera">
+              <svg class="ico" aria-hidden="true"><use href="#i-camera"></use></svg><span>Camera</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="cameraWrap" class="camera" hidden>
+          <video id="cameraFeed" playsinline autoplay muted></video>
+          <div class="camera-actions">
+            <button type="button" class="btn primary grow" id="snapPhoto">Capture</button>
+            <button type="button" class="btn quiet" id="closeCamera">Cancel</button>
+          </div>
+        </div>
+
+        <figure id="previewWrap" class="preview" hidden>
+          <img id="previewImg" alt="The photo you chose">
+          <figcaption>
+            <button type="button" class="btn quiet" id="resetImage">Choose another</button>
+            <button type="button" class="btn primary grow" id="runOcr">Read &amp; translate</button>
+          </figcaption>
+        </figure>
+
+        <div id="ocrProgress" class="progress" hidden>
+          <div class="bar"><span id="ocrBar"></span></div>
+          <p id="ocrStatus" class="muted small" aria-live="polite">Preparing…</p>
+        </div>
+      </article>
+
+      <article class="card" id="ocrCard" data-view="both">
+        <header class="card-head">
+          <h2>What it says</h2>
+          <span class="badge" id="ocrBadge" hidden></span>
+        </header>
+
+        <div class="seg" role="group" aria-label="Which text to show">
+          <button type="button" class="seg-btn is-active" data-ocrview="both">Both</button>
+          <button type="button" class="seg-btn" data-ocrview="original">Original</button>
+          <button type="button" class="seg-btn" data-ocrview="translation">Translation</button>
+        </div>
+
+        <div class="ocr-pane" data-pane="original">
+          <h3 class="mini-label">On the picture <small>tap to fix mistakes</small></h3>
+          <div id="ocrText" class="readout editable" contenteditable="true" spellcheck="false"
+               role="textbox" aria-multiline="true" aria-label="Text found in the picture"
+               data-placeholder="Text found in the picture appears here."></div>
+        </div>
+
+        <div class="ocr-pane" data-pane="translation">
+          <h3 class="mini-label">In your language</h3>
+          <div id="ocrTranslation" class="readout" aria-live="polite"
+               data-placeholder="The translation appears here."></div>
+
+          <div class="roman" id="ocrRomanBox" hidden>
+            <div class="roman-head"><span class="roman-title">Say it like this</span></div>
+            <p id="ocrRomanText" class="roman-body"></p>
+          </div>
+        </div>
+
+        <footer class="card-foot">
+          <button type="button" class="btn quiet" id="ocrSpeak">
+            <svg class="ico" aria-hidden="true"><use href="#i-speak"></use></svg><span>Listen</span>
+          </button>
+          <button type="button" class="btn quiet" id="ocrCopy">
+            <svg class="ico" aria-hidden="true"><use href="#i-copy"></use></svg><span>Copy</span>
+          </button>
+          <button type="button" class="btn primary grow" id="ocrRetranslate">Translate again</button>
+        </footer>
+      </article>
+
+      <article class="card" id="ocrLineCard" hidden>
+        <header class="card-head">
+          <h2>Line by line</h2>
+          <button type="button" class="btn tiny teal" id="ocrLineBtn">Translate each line</button>
+        </header>
+        <p class="muted small">Handy for menus and receipts &mdash; every line on its own.</p>
+        <ul class="linelist" id="ocrLineList"></ul>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ VOICE ============ -->
+  <section id="view-voice" class="view">
+    <div class="stack">
+
+      <article class="card mic-card">
+        <header class="card-head"><h2>Talk it out</h2></header>
+
+        <button type="button" id="micBtn" class="mic" aria-label="Start listening">
+          <span class="mic-ring" aria-hidden="true"></span>
+          <svg class="ico" aria-hidden="true"><use href="#i-mic"></use></svg>
+        </button>
+        <p id="micStatus" class="mic-status" aria-live="polite">Tap the microphone and start talking</p>
+
+        <div class="switches">
+          <label class="switch">
+            <input type="checkbox" id="autoSpeak" checked>
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-label">Read the translation out loud</span>
+          </label>
+          <label class="switch">
+            <input type="checkbox" id="continuousMode">
+            <span class="switch-track" aria-hidden="true"></span>
+            <span class="switch-label">Keep listening (conversation mode)</span>
+          </label>
+        </div>
+
+        <p id="voiceWarning" class="notice" hidden>
+          Speech recognition needs Chrome, Edge or another Chromium browser, served over
+          <code>http://localhost</code> or <code>https://</code>.
+        </p>
+      </article>
+
+      <article class="card">
+        <header class="card-head">
+          <h2>Conversation</h2>
+          <button type="button" class="btn tiny quiet" id="clearVoice">Clear</button>
+        </header>
+        <div id="voiceLog" class="voicelog">
+          <p class="empty">Nothing yet — what you say and what it means will appear here.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ SAVED ============ -->
+  <section id="view-saved" class="view">
+    <div class="stack">
+
+      <div class="seg wide" role="group" aria-label="Which list to show">
+        <button type="button" class="seg-btn is-active" data-savedview="phrases">Phrasebook</button>
+        <button type="button" class="seg-btn" data-savedview="history">Journal</button>
+      </div>
+
+      <article class="card" id="phrasePane">
+        <header class="card-head">
+          <h2>Phrasebook</h2>
+          <button type="button" class="btn tiny quiet" id="clearPhrases">Clear all</button>
+        </header>
+        <ul class="entrylist" id="phraseList">
+          <li class="empty">Tap <strong>Save phrase</strong> on a translation to keep it here.</li>
+        </ul>
+      </article>
+
+      <article class="card" id="historyPane" hidden>
+        <header class="card-head">
+          <h2>Journal</h2>
+          <button type="button" class="btn tiny quiet" id="clearHistory">Clear all</button>
+        </header>
+        <ul class="entrylist" id="historyList">
+          <li class="empty">Everything you translate is jotted down here, on this device only.</li>
+        </ul>
+      </article>
+
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>Romanization follows the Royal Thai General System (approximate, no tones). Translations come from
+      public translation services, or from Groq once you add a key. Nothing you type leaves this device
+      except the text being translated.</p>
+  </footer>
+</main>
+
+<!-- ============ BOTTOM SHEETS ============ -->
+
+<div class="sheet" id="sheet-lang" hidden>
+  <div class="sheet-backdrop" data-sheet-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-lang-title">
+    <button type="button" class="sheet-handle" data-sheet-close aria-label="Close this panel"></button>
+    <header class="sheet-head">
+      <h2 id="sheet-lang-title">Translate from</h2>
+      <button type="button" class="iconbtn" data-sheet-close aria-label="Close">
+        <svg class="ico" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+    </header>
+    <div class="sheet-body">
+      <div class="optlist" id="langOptions" role="radiogroup" aria-labelledby="sheet-lang-title"></div>
+    </div>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-item" hidden>
+  <div class="sheet-backdrop" data-sheet-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-item-title">
+    <button type="button" class="sheet-handle" data-sheet-close aria-label="Close this panel"></button>
+    <header class="sheet-head">
+      <h2 id="sheet-item-title">Saved phrase</h2>
+      <button type="button" class="iconbtn" data-sheet-close aria-label="Close">
+        <svg class="ico" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+    </header>
+    <div class="sheet-body">
+      <div class="sheet-quote" id="itemQuote"></div>
+      <ul class="actionlist" id="itemActions"></ul>
+    </div>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-word" hidden>
+  <div class="sheet-backdrop" data-sheet-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-word-title">
+    <button type="button" class="sheet-handle" data-sheet-close aria-label="Close this panel"></button>
+    <header class="sheet-head">
+      <h2 id="sheet-word-title">Word</h2>
+      <button type="button" class="iconbtn" data-sheet-close aria-label="Close">
+        <svg class="ico" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+    </header>
+    <div class="sheet-body">
+      <p class="word-big" id="wordBig"></p>
+      <p class="word-rom" id="wordRom"></p>
+      <h3 class="mini-label">Meaning on its own</h3>
+      <p class="word-gloss" id="wordGloss" aria-live="polite"></p>
+      <div class="sheet-foot">
+        <button type="button" class="btn teal grow" id="wordSpeak">
+          <svg class="ico" aria-hidden="true"><use href="#i-speak"></use></svg><span>Listen</span>
+        </button>
+        <button type="button" class="btn quiet" id="wordCopy">
+          <svg class="ico" aria-hidden="true"><use href="#i-copy"></use></svg><span>Copy</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sheet" id="sheet-settings" hidden>
+  <div class="sheet-backdrop" data-sheet-close></div>
+  <div class="sheet-panel" role="dialog" aria-modal="true" aria-labelledby="sheet-settings-title">
+    <button type="button" class="sheet-handle" data-sheet-close aria-label="Close this panel"></button>
+    <header class="sheet-head">
+      <h2 id="sheet-settings-title">Translation engine</h2>
+      <button type="button" class="iconbtn" data-sheet-close aria-label="Close">
+        <svg class="ico" aria-hidden="true"><use href="#i-close"></use></svg>
+      </button>
+    </header>
+
+    <div class="sheet-body">
+      <p class="sheet-lede">
+        The free translators are word-for-word, and the built-in romanizer works from a rule set
+        and a word list, so unusual Thai can slip past it. Add a Groq key and an AI writes both
+        the translation and the romanization instead.
+      </p>
+
+      <div class="formrow">
+        <label class="mini-label" for="groqKey">Groq API key</label>
+        <div class="inputwrap">
+          <input type="password" id="groqKey" class="textinput" placeholder="gsk_…"
+                 autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+          <button type="button" class="iconbtn inputbtn" id="groqKeyPeek" aria-label="Show the key">
+            <svg class="ico" aria-hidden="true"><use href="#i-eye"></use></svg>
+          </button>
+        </div>
+        <p class="formhint">
+          Get one free at <strong>console.groq.com/keys</strong>. It is kept in this browser only.
+        </p>
+      </div>
+
+      <div class="formrow">
+        <label class="mini-label" for="groqModel">Model</label>
+        <select id="groqModel" class="textinput"></select>
+        <p class="formhint" id="groqModelHint">Save your key to load the models your account can use.</p>
+      </div>
+
+      <div class="switches">
+        <label class="switch">
+          <input type="checkbox" id="groqEnabled" checked>
+          <span class="switch-track" aria-hidden="true"></span>
+          <span class="switch-label">Use Groq for translations</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" id="groqRomanize" checked>
+          <span class="switch-track" aria-hidden="true"></span>
+          <span class="switch-label">Let Groq write the Thai romanization too</span>
+        </label>
+      </div>
+
+      <p class="formstatus" id="groqStatus" role="status" aria-live="polite" hidden></p>
+
+      <div class="notice">
+        <strong>Keep the key to yourself.</strong> It is stored in this browser and sent straight to
+        Groq from this page, so anyone who can open this browser can read it. Do not save a key on a
+        shared computer, and do not put this site online with a key in it.
+      </div>
+
+      <div class="sheet-foot">
+        <button type="button" class="btn primary grow" id="groqSave">
+          <svg class="ico" aria-hidden="true"><use href="#i-check"></use></svg><span>Test &amp; save</span>
+        </button>
+        <button type="button" class="btn quiet" id="groqForget">
+          <svg class="ico" aria-hidden="true"><use href="#i-trash"></use></svg><span>Remove</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+<script src="js/romanize.js"></script>
+<script src="js/groq.js"></script>
+<script src="js/translate.js"></script>
+<script src="js/speech.js"></script>
+<script src="js/ocr.js"></script>
+<script src="js/sheets.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
