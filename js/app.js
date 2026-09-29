@@ -640,7 +640,8 @@
   });
 
   function translateOcrText() {
-    var text = ocrTextEl.textContent.trim();
+    var text = (OCR.tidy ? OCR.tidy(ocrTextEl.textContent) : ocrTextEl.textContent).trim();
+    if (text && text !== ocrTextEl.textContent.trim()) ocrTextEl.textContent = text;
     if (!text) { toast('There is no text to translate'); return; }
 
     ocrTranslation.classList.add('is-loading');

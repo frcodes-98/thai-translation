@@ -51,22 +51,104 @@
   }
 
   /* Tesseract sprinkles spaces through Thai and Chinese text and breaks
-     lines wherever the image wraps. Tidy that up before translating. */
-  function tidy(text, code) {
+     lines wherever the image wraps. Photos of laptop screens also pick up
+     the taskbar and FPS overlays — "% 1333m: 1" — which must not be
+     translated. */
+  function squeezeScript(line) {
+    var l = (line || '').replace(/\s+/g, ' ').trim();
+    var prev;
+    do {
+      prev = l;
+      l = l.replace(/([\u0E00-\u0E7F])[ \t]+([\u0E00-\u0E7F])/g, '$1$2')
+           .replace(/([\u4E00-\u9FFF])[ \t]+([\u4E00-\u9FFF])/g, '$1$2');
+    } while (l !== prev);
+    return l;
+  }
+
+  function stripHudTail(line) {
+    return line
+      .replace(/\s*%+\s*[\d.\s:a-zA-Z|/\\-]+$/g, '')
+      .replace(/\s+\d{2,5}\s*[mMkKgG]\s*:?\s*\d*\s*$/g, '')
+      .replace(/\s+\d{3,5}\s*[xX×]\s*\d{3,5}\s*$/g, '')
+      .trim();
+  }
+
+  function isHudJunk(line) {
+    var t = stripHudTail(line);
+    if (!t) return true;
+
+    if (/^[%$€#]\s*\d/.test(t)) return true;
+    if (/^\d{2,5}\s*[mMkKgG]\s*:?\s*\d*$/.test(t)) return true;
+    if (/^\d{1,2}:\d{2}(\s*[AaPp][Mm])?$/.test(t)) return true;
+    if (/^(search|type here|cortana|microsoft|windows)$/i.test(t)) return true;
+    if (/^\d{3,5}\s*[xX×]\s*\d{3,5}$/.test(t)) return true;
+
+    var letters = (t.match(/[\u0E00-\u0E7Fa-zA-Z\u4E00-\u9FFF]/g) || []).length;
+    var digits  = (t.match(/\d/g) || []).length;
+    var symbols = (t.match(/[%:$|\\/#@*+=~]/g) || []).length;
+    if (digits + symbols >= 3 && letters <= 2) return true;
+    if (t.length <= 4 && !/[\u0E00-\u0E7F\u4E00-\u9FFF]/.test(t) && /\d/.test(t)) return true;
+    return false;
+  }
+
+  function tidyText(text) {
     var out = (text || '').replace(/\r/g, '').replace(/[ \t]+\n/g, '\n');
+    return out.split('\n').map(function (line) {
+      return squeezeScript(stripHudTail(line));
+    }).filter(function (line) {
+      return line && !isHudJunk(line);
+    }).join('\n').replace(/\n{3,}/g, '\n\n').trim();
+  }
 
-    out = out.split('\n').map(function (line) {
-      var l = line.trim();
-      var prev;
-      do {
-        prev = l;
-        l = l.replace(/([\u0E00-\u0E7F])[ \t]+([\u0E00-\u0E7F])/g, '$1$2')
-             .replace(/([\u4E00-\u9FFF])[ \t]+([\u4E00-\u9FFF])/g, '$1$2');
-      } while (l !== prev);
-      return l;
-    }).filter(Boolean).join('\n');
+  function collectLines(data, imageHeight) {
+    var raw = (data && data.lines) || [];
+    var kept = [];
+    var hasScript = false;
 
-    return out.replace(/\n{3,}/g, '\n\n').trim();
+    raw.forEach(function (row) {
+      var text = squeezeScript(stripHudTail(row && row.text));
+      if (!text || isHudJunk(text)) return;
+
+      var conf = typeof row.confidence === 'number' ? row.confidence : 100;
+      var y0 = row.bbox && typeof row.bbox.y0 === 'number' ? row.bbox.y0 : 0;
+      var nearBottom = imageHeight && y0 > imageHeight * 0.88;
+      var script = /[\u0E00-\u0E7F\u4E00-\u9FFF]/.test(text);
+
+      if (script) hasScript = true;
+      if (conf < 35) return;
+      if (nearBottom && !script && conf < 70) return;
+      if (!script && conf < 48) return;
+
+      kept.push({ text: text, confidence: conf, script: script });
+    });
+
+    if (hasScript) {
+      kept = kept.filter(function (row) { return row.script || row.confidence >= 72; });
+    }
+
+    var texts = kept.map(function (row) { return row.text; }).filter(Boolean);
+    if (!texts.length) return tidyText(data && data.text);
+    return texts.join('\n');
+  }
+
+  function measureImage(src) {
+    return new Promise(function (resolve) {
+      if (!src || (typeof src === 'object' && !(src instanceof Blob) && !src.src)) {
+        resolve({ w: 0, h: 0 });
+        return;
+      }
+      var img = new Image();
+      img.onload = function () { resolve({ w: img.naturalWidth, h: img.naturalHeight }); };
+      img.onerror = function () { resolve({ w: 0, h: 0 }); };
+      try {
+        if (typeof src === 'string') img.src = src;
+        else if (src instanceof Blob) img.src = URL.createObjectURL(src);
+        else if (src.src) img.src = src.src;
+        else resolve({ w: 0, h: 0 });
+      } catch (e) {
+        resolve({ w: 0, h: 0 });
+      }
+    });
   }
 
   /**
@@ -94,12 +176,14 @@
       .then(function (result) {
         busy = false;
         onProgress && onProgress(1, 'Done');
-        var text = tidy(result.data.text, langCode);
-        return {
-          text: text,
-          confidence: result.data.confidence,
-          lines: text ? text.split('\n').filter(Boolean) : []
-        };
+        return measureImage(imageSource).then(function (size) {
+          var text = collectLines(result.data, size.h) || tidyText(result.data.text);
+          return {
+            text: text,
+            confidence: result.data.confidence,
+            lines: text ? text.split('\n').filter(Boolean) : []
+          };
+        });
       })
       .catch(function (err) {
         busy = false;
@@ -110,6 +194,7 @@
   global.OCR = {
     isAvailable: isAvailable,
     recognize: recognize,
+    tidy: tidyText,
     languageLabel: function (code) { return langsFor(code); }
   };
 })(window);
